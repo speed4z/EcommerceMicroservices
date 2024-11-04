@@ -20,3 +20,4 @@ node_modules/
 # Ignore build output directories
 target/
 bin/
+/.idea/
