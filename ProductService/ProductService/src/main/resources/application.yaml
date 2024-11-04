@@ -1,0 +1,28 @@
+###Settings for Kafka
+#spring.kafka.bootstrap-servers=localhost:9092
+#spring.kafka.consumer.group-id= productapp
+#spring.kafka.consumer.auto-offset-reset=earliest
+#spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+#spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+#spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+#spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer
+
+server:
+  port: 8089
+
+spring:
+  application:
+    name: ProductService
+
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/product_serviceDB
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto=update:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
