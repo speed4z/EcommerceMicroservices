@@ -1,0 +1,22 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Ignore Eclipse project files
+.metadata/
+.classpath
+.project
+.settings/
+.idea
+
+# Ignore other system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Ignore node_modules (if you're using Node.js)
+node_modules/
+
+# Ignore build output directories
+target/
+bin/
