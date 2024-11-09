@@ -1,5 +1,6 @@
 package com.ecommerce.order.microservice.controller;
 
+import com.ecommerce.order.microservice.dto.OrderRequestDto;
 import com.ecommerce.order.microservice.services.OrderRequestBusiness;
 import com.ecommerce.order.microservice.entities.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +17,27 @@ public class OrderRequestController {
     private OrderRequestBusiness orderRequestBusiness;
 
     @PostMapping("/place")
-    public ResponseEntity<OrderRequest> placeOrder(@RequestBody OrderRequest orderRequest){
-        orderRequestBusiness.placeOrder(orderRequest);
-        return ResponseEntity.ok(orderRequest);
+    public ResponseEntity<OrderRequestDto> placeOrder(@RequestBody OrderRequestDto orderRequest){
+        OrderRequestDto orderRequestSaved = orderRequestBusiness.placeOrder(orderRequest);
+        return ResponseEntity.ok(orderRequestSaved);
     }
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<OrderRequest> getOrderById(@PathVariable String orderId){
-        OrderRequest orderRequestResponse = orderRequestBusiness.getOrderById(orderId);
+    public ResponseEntity<OrderRequestDto> getOrderById(@PathVariable String orderId){
+        OrderRequestDto orderRequestResponse = orderRequestBusiness.getOrderById(orderId);
         return ResponseEntity.ok(orderRequestResponse);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<OrderRequest>> getAllOrders(){
-        List<OrderRequest> orderRequests = orderRequestBusiness.listAllOrders();
+    public ResponseEntity<List<OrderRequestDto>> getAllOrders(){
+        List<OrderRequestDto> orderRequests = orderRequestBusiness.listAllOrders();
         return ResponseEntity.ok(orderRequests);
     }
 
     @DeleteMapping("/delete/{orderId}")
-    public ResponseEntity<OrderRequest> deleteOrderById(@PathVariable String orderId){
-        OrderRequest orderRequestResponse = orderRequestBusiness.deleteOrderById(orderId);
-        return ResponseEntity.ok(orderRequestResponse);
+    public ResponseEntity<OrderRequestDto> deleteOrderById(@PathVariable String orderId){
+        OrderRequestDto deletedorder = orderRequestBusiness.deleteOrderById(orderId);
+        return ResponseEntity.ok(deletedorder);
     }
 
 }
