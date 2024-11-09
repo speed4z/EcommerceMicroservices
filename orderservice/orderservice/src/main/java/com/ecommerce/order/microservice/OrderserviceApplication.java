@@ -14,8 +14,4 @@ public class OrderserviceApplication {
         SpringApplication.run(OrderserviceApplication.class, args);
     }
 
-    @Bean
-    public ModelMapper getModelMapper() {
-        return new ModelMapper();
-    }
 }
