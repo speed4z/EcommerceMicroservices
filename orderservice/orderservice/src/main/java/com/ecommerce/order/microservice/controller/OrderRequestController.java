@@ -1,13 +1,12 @@
-package com.ecommerce.order.service.controller;
+package com.ecommerce.order.microservice.controller;
 
-import com.ecommerce.order.service.business.OrderRequestBusiness;
-import com.ecommerce.order.service.entities.OrderRequest;
+import com.ecommerce.order.microservice.services.OrderRequestBusiness;
+import com.ecommerce.order.microservice.entities.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("order-request")
@@ -24,8 +23,8 @@ public class OrderRequestController {
 
     @GetMapping("/{orderId}")
     public ResponseEntity<OrderRequest> getOrderById(@PathVariable String orderId){
-        Optional<OrderRequest> orderRequestResponse = orderRequestBusiness.getOrderById(orderId);
-        return orderRequestResponse.map(ResponseEntity::ok).orElseGet(() -> (ResponseEntity<OrderRequest>) ResponseEntity.notFound());
+        OrderRequest orderRequestResponse = orderRequestBusiness.getOrderById(orderId);
+        return ResponseEntity.ok(orderRequestResponse);
     }
 
     @GetMapping("/all")
@@ -34,5 +33,10 @@ public class OrderRequestController {
         return ResponseEntity.ok(orderRequests);
     }
 
+    @DeleteMapping("/delete/{orderId}")
+    public ResponseEntity<OrderRequest> deleteOrderById(@PathVariable String orderId){
+        OrderRequest orderRequestResponse = orderRequestBusiness.deleteOrderById(orderId);
+        return ResponseEntity.ok(orderRequestResponse);
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.ecommerce.order.service.entities;
+package com.ecommerce.order.microservice.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

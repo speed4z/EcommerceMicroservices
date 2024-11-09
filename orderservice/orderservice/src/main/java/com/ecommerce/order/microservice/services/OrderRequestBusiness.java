@@ -1,6 +1,6 @@
-package com.ecommerce.order.service.business;
+package com.ecommerce.order.microservice.services;
 
-import com.ecommerce.order.service.entities.OrderRequest;
+import com.ecommerce.order.microservice.entities.OrderRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,8 +13,8 @@ public interface OrderRequestBusiness {
     List<OrderRequest> listAllOrdersByInventoryId(String inventoryId);
     List<OrderRequest> listAllOrdersHavingProductId(String productId);
     List<OrderRequest> listAllOrdersHavingProductIds(List<String> productIds);
-    Optional<OrderRequest> getOrderById(String orderId);
-    Optional<OrderRequest> deleteOrderById(String orderId);
+    OrderRequest getOrderById(String orderId);
+    OrderRequest deleteOrderById(String orderId);
     OrderRequest placeOrder(OrderRequest orderRequest);
     List<OrderRequest> getOrdersForUserId(String userId);
 
