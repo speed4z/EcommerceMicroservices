@@ -1,20 +1,25 @@
 package com.ecommerce.order.microservice.controller;
 
+import com.ecommerce.order.microservice.dto.InventoryDto;
 import com.ecommerce.order.microservice.dto.OrderRequestDto;
+import com.ecommerce.order.microservice.dto.ProductDto;
+import com.ecommerce.order.microservice.dto.UserDto;
 import com.ecommerce.order.microservice.services.OrderRequestBusiness;
-import com.ecommerce.order.microservice.entities.OrderRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("order-request")
 public class OrderRequestController {
 
-    @Autowired
-    private OrderRequestBusiness orderRequestBusiness;
+    private final OrderRequestBusiness orderRequestBusiness;
+
+    public OrderRequestController(OrderRequestBusiness orderRequestBusiness){
+        this.orderRequestBusiness = orderRequestBusiness;
+    }
 
     @PostMapping("/place")
     public ResponseEntity<OrderRequestDto> placeOrder(@RequestBody OrderRequestDto orderRequest){
@@ -36,8 +41,31 @@ public class OrderRequestController {
 
     @DeleteMapping("/delete/{orderId}")
     public ResponseEntity<OrderRequestDto> deleteOrderById(@PathVariable String orderId){
-        OrderRequestDto deletedorder = orderRequestBusiness.deleteOrderById(orderId);
-        return ResponseEntity.ok(deletedorder);
+        OrderRequestDto deletedOrder = orderRequestBusiness.deleteOrderById(orderId);
+        return ResponseEntity.ok(deletedOrder);
     }
 
+//    List<OrderRequest> listAllOrdersByUserId(String userId);
+    @PostMapping("/user-orders")
+    public ResponseEntity<List<OrderRequestDto>> getAllOrdersForUser(@RequestBody UserDto user){
+        List<OrderRequestDto> orderRequests = orderRequestBusiness.listAllOrdersByUserId(user.getUserId());
+        return ResponseEntity.ok(orderRequests);
+    }
+
+    @PostMapping("/inventory-orders")
+    public ResponseEntity<List<OrderRequestDto>> getAllOrdersForInventory(@RequestBody InventoryDto inventoryDto){
+        List<OrderRequestDto> orderRequests = orderRequestBusiness.listAllOrdersByInventoryId(inventoryDto.getInventoryId());
+        return ResponseEntity.ok(orderRequests);
+    }
+
+    @PostMapping("/orders-with-products")
+    public ResponseEntity<List<OrderRequestDto>> getAllOrdersForInventory(@RequestBody List<ProductDto> productDtoList){
+        List<OrderRequestDto> orderRequests = orderRequestBusiness.
+                listAllOrdersHavingProductIds(
+                        productDtoList.stream()
+                                .map(ProductDto::getProductId)
+                                .collect(Collectors.toList())
+                );
+        return ResponseEntity.ok(orderRequests);
+    }
 }

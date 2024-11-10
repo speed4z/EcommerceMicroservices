@@ -53,29 +53,37 @@ public class OrderRequestBusinessImpl implements OrderRequestBusiness {
     }
 
     @Override
-    public List<OrderRequest> listAllOrdersByUserId(String userId) {
-        return orderRequestRepository.findByUserId(userId);
+    public List<OrderRequestDto> listAllOrdersByUserId(String userId) {
+        List<OrderRequestDto> orderDtoList = modelMapper.mapList(orderRequestRepository.findByUserId(userId),OrderRequestDto.class);
+        logger.info(orderDtoList.toString());
+        return orderDtoList;
     }
 
     @Override
-    public List<OrderRequest> listAllOrdersByInventoryId(String inventoryId) {
-        return orderRequestRepository.findByInventoryId(inventoryId);
+    public List<OrderRequestDto> listAllOrdersByInventoryId(String inventoryId) {
+        List<OrderRequestDto> orderDtoList = modelMapper.mapList(orderRequestRepository.findByInventoryId(inventoryId),OrderRequestDto.class);
+        logger.info(orderDtoList.toString());
+        return orderDtoList;
     }
 
     @Override
-    public List<OrderRequest> listAllOrdersHavingProductId(String productId) {
+    public List<OrderRequestDto> listAllOrdersHavingProductId(String productId) {
         List<OrderItem> orderItems = orderItemRepository.findByProductId(productId);
-        return orderRequestRepository.findByOrderIdIn(orderItems.stream()
+        List<OrderRequestDto> orderDtoList = modelMapper.mapList(orderRequestRepository.findByOrderIdIn(orderItems.stream()
                 .map(OrderItem::getOrderRequestId)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList())),OrderRequestDto.class);
+        logger.info(orderDtoList.toString());
+        return orderDtoList;
     }
 
     @Override
-    public List<OrderRequest> listAllOrdersHavingProductIds(List<String> productIds) {
+    public List<OrderRequestDto> listAllOrdersHavingProductIds(List<String> productIds) {
         List<OrderItem> orderItems = orderItemRepository.findByProductIdIn(productIds);
-        return orderRequestRepository.findByOrderIdIn(orderItems.stream()
+        List<OrderRequestDto> orderDtoList = modelMapper.mapList( orderRequestRepository.findByOrderIdIn(orderItems.stream()
                 .map(OrderItem::getOrderRequestId)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList())),OrderRequestDto.class);
+        logger.info(orderDtoList.toString());
+        return orderDtoList;
     }
 
     @Override
@@ -108,7 +116,9 @@ public class OrderRequestBusinessImpl implements OrderRequestBusiness {
     }
 
     @Override
-    public List<OrderRequest> getOrdersForUserId(String userId) {
-        return orderRequestRepository.findByUserId(userId);
+    public List<OrderRequestDto> getOrdersForUserId(String userId) {
+        List<OrderRequestDto> orderDtoList = modelMapper.mapList (orderRequestRepository.findByUserId(userId),OrderRequestDto.class);
+        logger.info(orderDtoList.toString());
+        return orderDtoList;
     }
 }

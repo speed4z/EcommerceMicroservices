@@ -10,14 +10,14 @@ import java.util.Optional;
 public interface OrderRequestBusiness {
 
     List<OrderRequestDto> listAllOrders();
-    List<OrderRequest> listAllOrdersByUserId(String userId);
-    List<OrderRequest> listAllOrdersByInventoryId(String inventoryId);
-    List<OrderRequest> listAllOrdersHavingProductId(String productId);
-    List<OrderRequest> listAllOrdersHavingProductIds(List<String> productIds);
+    List<OrderRequestDto> listAllOrdersByUserId(String userId);
+    List<OrderRequestDto> listAllOrdersByInventoryId(String inventoryId);
+    List<OrderRequestDto> listAllOrdersHavingProductId(String productId);
+    List<OrderRequestDto> listAllOrdersHavingProductIds(List<String> productIds);
     OrderRequestDto getOrderById(String orderId);
     OrderRequestDto deleteOrderById(String orderId);
     OrderRequestDto placeOrder(OrderRequestDto orderRequest);
-    List<OrderRequest> getOrdersForUserId(String userId);
+    List<OrderRequestDto> getOrdersForUserId(String userId);
 
 
 }
