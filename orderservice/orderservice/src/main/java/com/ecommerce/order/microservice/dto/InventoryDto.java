@@ -13,8 +13,7 @@ import java.util.HashMap;
 @Builder
 @EqualsAndHashCode
 public class InventoryDto {
-
 	private String inventoryId;
-	private String location;
-	private HashMap<String, Integer> productInfo;
+	private String productId;
+	private Integer productQuantity;
 }
