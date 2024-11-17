@@ -1,4 +1,4 @@
-package com.ecommerce.inventory.service.entities;
+package com.ecommerce.inventory_service.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -18,10 +18,6 @@ public class Inventory {
 	
 	@Id
 	private String inventoryId;
-	
-	private String location;
-	
-	private Product product;
-	
-	private int privateQuantity;
+	private String productId;
+	private Integer productQuantity;
 }
