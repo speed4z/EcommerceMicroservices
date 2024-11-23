@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 public class ProductDTO {
 
-    private Integer productId;
+    private String productId;
     private String name;
     private String type;
     private Double price;

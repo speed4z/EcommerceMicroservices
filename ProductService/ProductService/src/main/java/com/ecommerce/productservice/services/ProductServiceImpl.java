@@ -2,15 +2,15 @@ package com.ecommerce.productservice.services;
 
 import com.ecommerce.productservice.adapters.mappers.ProductOutputMapper;
 import com.ecommerce.productservice.dtos.ProductDTO;
-import com.ecommerce.productservice.exceptions.ProductExceptions;
+import com.ecommerce.productservice.exceptions.ProductException;
 import com.ecommerce.productservice.repositories.ProductRepository;
 import com.ecommerce.productservice.entities.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.slf4j.helpers.Reporter.info;
 
@@ -29,16 +29,22 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductDTO getProductById(int id) throws ProductExceptions {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ProductExceptions("Product with ID :" + id + " not found"));
+    public ProductDTO getProductById(String productId){
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductException("Product with ID :" + productId + " not found"));
         info("Requested Product: " + product);
         return ProductOutputMapper.INSTANCE.mapToModel(product);
     }
 
-//    @Override
-//    public List<ProductDTO> getAllProducts(){
-//        return productRepository.findAll();
-//    }
+    @Override
+    public List<ProductDTO> getAllProducts(){
+        List<ProductDTO> productDTOs = new ArrayList<>();
+        List<Product>  listProducts = productRepository.findAll();
+        info("All Products : "+listProducts);
+        for(Product p : listProducts){
+            productDTOs.add(ProductOutputMapper.INSTANCE.mapToModel(p));
+        }
+        return productDTOs;
+    }
 
 }

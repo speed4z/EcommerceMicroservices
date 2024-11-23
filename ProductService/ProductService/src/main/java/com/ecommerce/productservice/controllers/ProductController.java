@@ -1,8 +1,6 @@
 package com.ecommerce.productservice.controllers;
 
 import com.ecommerce.productservice.dtos.ProductDTO;
-import com.ecommerce.productservice.entities.Product;
-import com.ecommerce.productservice.exceptions.ProductExceptions;
 import com.ecommerce.productservice.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +18,8 @@ public class ProductController {
     }
 
     @GetMapping("/testsanity")
-    public void sanity(){
-        System.out.println("Project is up and running!");
+    public ResponseEntity<String> sanity(){
+        return ResponseEntity.ok("Project is up and running!");
     }
 
     @PostMapping("/saveproduct")
@@ -29,13 +27,13 @@ public class ProductController {
         return ResponseEntity.ok(productServiceImpl.save(product));
     }
 
-//    @GetMapping("/products")
-//    public List<ProductDTO> getAllProducts(){
-//        return productServiceImpl.getAllProducts();
-//    }
+    @GetMapping("/products")
+    public List<ProductDTO> getAllProducts(){
+        return productServiceImpl.getAllProducts();
+    }
 
-    @GetMapping("/products/{id}")
-    public ResponseEntity<ProductDTO> getProduct(@PathVariable int id) throws ProductExceptions {
-        return ResponseEntity.ok(productServiceImpl.getProductById(id));
+    @GetMapping("/products/{productId}")
+    public ResponseEntity<ProductDTO> getProduct(@PathVariable String productId) {
+        return ResponseEntity.ok(productServiceImpl.getProductById(productId));
     }
 }

@@ -12,8 +12,8 @@ import lombok.*;
 @Table(name = "product")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer productId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String productId;
 
     private String name;
 
