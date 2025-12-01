@@ -13,7 +13,12 @@ public class GlobalOrderExceptionHandler {
     public ResponseEntity<ApiResponse> handlerResourceNotFoundException(ProductException ex)
     {
         String message = ex.getMessage();
-        ApiResponse response = ApiResponse.builder().message(message).success(true).httpStatus(HttpStatus.NOT_FOUND).build();
+        ApiResponse response = ApiResponse
+                .builder()
+                .setMessage(message)
+                .setSuccess(true)
+                .setHttpStatus(HttpStatus.NOT_FOUND)
+                .build();
         return new ResponseEntity<>(response,response.getHttpStatus());
     }
 
